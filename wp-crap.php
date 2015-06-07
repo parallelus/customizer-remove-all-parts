@@ -55,7 +55,7 @@ class Customizer_Remove_All {
 	 */
 	public function admin_init() {
 
-		// Fire our Ninja Forms init action.
+		// Fire init action.
 		do_action( 'crap_admin_init', $this );
 	}
 
@@ -135,7 +135,6 @@ class Customizer_Remove_All {
 	 * Get our plugin settings.
 	 *
 	 * @access public
-	 * @since 2.9
 	 * @return array $settings
 	 */
 	public function get_plugin_settings() {
