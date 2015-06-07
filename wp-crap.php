@@ -27,3 +27,131 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 */
+
+// Exit if accessed directly
+if ( __FILE__ == $_SERVER['SCRIPT_FILENAME'] ) { exit; }
+
+
+if (!class_exists('Customizer_Remove_All')) :
+class Customizer_Remove_All {
+
+	/**
+	 * Run all plugin stuff on init.
+	 * 
+	 * @return void
+	 */
+	public function init() {
+		// Get the plugin settings.
+		$this->plugin_settings = $this->get_plugin_settings();
+
+		// Fire the plugin init action so other plugins can register items.
+		do_action( 'crap_init', $this );
+	}
+
+	/**
+	 * Run all of our plugin stuff on admin init.
+	 *
+	 * @return void
+	 */
+	public function admin_init() {
+
+		// Fire our Ninja Forms init action.
+		do_action( 'crap_admin_init', $this );
+	}
+
+	/**
+	 * Setup plugin constants
+	 *
+	 * @access private
+	 * @return void
+	 */
+	private function setup_constants() {
+		global $wpdb;
+
+		// Plugin version
+		if ( ! defined( 'CRAP_PLUGIN_VERSION' ) )
+			define( 'CRAP_PLUGIN_VERSION', '0.1' );
+
+		// Plugin Folder Path
+		if ( ! defined( 'CRAP_PLUGIN_DIR' ) )
+			define( 'CRAP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+
+		// Plugin Folder URL
+		if ( ! defined( 'CRAP_PLUGIN_URL' ) )
+			define( 'CRAP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+
+		// Plugin Root File
+		if ( ! defined( 'CRAP_PLUGIN_FILE' ) )
+			define( 'CRAP_PLUGIN_FILE', __FILE__ );
+	}
+
+	/**
+	 * Include files
+	 *
+	 * @access private
+	 * @return void
+	 */
+	private function includes() {
+		// Include resources
+		// require_once( CRAP_PLUGIN_DIR . 'classes/class.name.php' );
+
+
+		if ( is_admin () ) {
+			// Include admin only resources.
+			// require_once( CRAP_PLUGIN_DIR . 'includes/admin/file-name.php' );
+		}
+
+	}
+
+	/**
+	 * Load our language files
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function load_lang() {
+		/** Set our unique textdomain string */
+		$textdomain = 'wp-crap';
+
+		/** The 'plugin_locale' filter is also used by default in load_plugin_textdomain() */
+		$locale = apply_filters( 'plugin_locale', get_locale(), $textdomain );
+
+		/** Set filter for WordPress languages directory */
+		$wp_lang_dir = apply_filters(
+			'crap_wp_lang_dir',
+			WP_LANG_DIR . '/wp-crap/' . $textdomain . '-' . $locale . '.mo'
+		);
+
+		/** Translations: First, look in WordPress' "languages" folder */
+		load_textdomain( $textdomain, $wp_lang_dir );
+
+		/** Translations: Next, look in plugin's "lang" folder (default) */
+		$plugin_dir = basename( dirname( __FILE__ ) );
+		$lang_dir = apply_filters( 'crap_lang_dir', $plugin_dir . '/lang/' );
+		load_plugin_textdomain( $textdomain, FALSE, $lang_dir );
+	}
+
+	/**
+	 * Get our plugin settings.
+	 *
+	 * @access public
+	 * @since 2.9
+	 * @return array $settings
+	 */
+	public function get_plugin_settings() {
+
+		// Get the settings
+		$settings = apply_filters( "crap_settings", get_option( "crap_settings" ) );
+
+		// Apply additional filers...
+		// $settings['some_value'] = apply_filters( 'crap_settings/some_value', $settings['some_value'] );
+
+		return $settings;
+	}
+
+
+} // End Class
+endif; 
+
+// Let's go!
+Customizer_Remove_All();
