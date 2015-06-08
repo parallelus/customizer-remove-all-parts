@@ -5,7 +5,7 @@ Plugin URI: https://github.com/parallelus/WP-CRAP
 Description: Removes the WordPress Customizer completely from your install.
 Version: 0.1
 Author: Andy Wilkerson, Jesse Petersen
-Author URI: http://para.llel.us, http://www.petersenmediagroup.com
+Author URI: http://parallelus.github.io/WP-CRAP/
 Text Domain: wp-crap
 Domain Path: /lang/
 
