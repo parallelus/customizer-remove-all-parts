@@ -93,7 +93,7 @@ class Customizer_Remove_All {
 	 */
 	private function includes() {
 		// Include resources
-		// require_once( CRAP_PLUGIN_DIR . 'classes/class.name.php' );
+		require_once( CRAP_PLUGIN_DIR . 'includes/action.php' );
 
 
 		if ( is_admin () ) {
@@ -150,7 +150,18 @@ class Customizer_Remove_All {
 
 
 } // End Class
-endif; 
+endif;
 
-// Let's go!
-Customizer_Remove_All();
+/**
+* The main function responsible for returning the one true Customizer_Remove_All
+* Instance to functions everywhere.
+*
+* Use this function like you would a global variable, except without needing
+* to declare the global.
+*
+* @since 4.0.0
+* @return object The one true Stealth_Login_Page Instance
+*/
+function Customizer_Remove_All() {
+return Customizer_Remove_All::instance();
+}
