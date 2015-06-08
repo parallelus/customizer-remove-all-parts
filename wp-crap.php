@@ -93,12 +93,12 @@ class Customizer_Remove_All {
 	 */
 	private function includes() {
 		// Include resources
-		require_once( CRAP_PLUGIN_DIR . 'includes/action.php' );
+		//require_once( CRAP_PLUGIN_DIR . 'includes/actions.php' );
 
 
 		if ( is_admin () ) {
 			// Include admin only resources.
-			// require_once( CRAP_PLUGIN_DIR . 'includes/admin/file-name.php' );
+			require_once( CRAP_PLUGIN_DIR . 'includes/admin/admin-actions.php' );
 		}
 
 	}
