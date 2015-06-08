@@ -36,6 +36,42 @@ if (!class_exists('Customizer_Remove_All')) :
 class Customizer_Remove_All {
 
 	/**
+	 * @var Customizer_Remove_All
+	 */
+	private static $instance;
+
+
+	/**
+	 * Main Instance
+	 *
+	 * Allows only one instance of Customizer_Remove_All in memory, and needing to define 
+	 * lots of globals.
+	 *
+	 * @since 2.7
+	 * @static
+	 * @staticvar array $instance
+	 * @return Big mama, Customizer_Remove_All
+	 */
+	public static function instance() {
+		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Customizer_Remove_All ) ) {
+			
+			// Start your engines!
+			self::$instance = new Customizer_Remove_All;
+
+			// Load the class structures to trigger initially
+			self::$instance->setup_constants();
+			self::$instance->includes();
+
+			// Tell 
+			register_activation_hook( __FILE__, 'crap_plugin_activation' );
+			add_action( 'plugins_loaded', array( self::$instance, 'load_lang' ) );
+			add_action( 'init', array( self::$instance, 'init' ), 10 ); // was priority 5
+			add_action( 'admin_init', array( self::$instance, 'admin_init' ), 10 ); // was priority 5
+		}
+		return self::$instance;
+	}
+
+	/**
 	 * Run all plugin stuff on init.
 	 * 
 	 * @return void
@@ -159,9 +195,11 @@ endif;
 * Use this function like you would a global variable, except without needing
 * to declare the global.
 *
-* @since 4.0.0
-* @return object The one true Stealth_Login_Page Instance
+* @return object The one true Customizer_Remove_All Instance
 */
 function Customizer_Remove_All() {
-return Customizer_Remove_All::instance();
+	return Customizer_Remove_All::instance();
 }
+
+// GO!
+Customizer_Remove_All();
