@@ -2,15 +2,14 @@
 /*
 Plugin Name: Customizer Remove All Plugin (CRAP)
 Plugin URI: https://github.com/parallelus/WP-CRAP
-Description: Removes the WordPress Customizer completely from your install.
-Version: 0.1
+Description: Completely removes the WordPress Customizer from loading in your install.
+Version: 1.0.0
 Author: Andy Wilkerson, Jesse Petersen
 Author URI: http://parallelus.github.io/WP-CRAP/
 Text Domain: wp-crap
-Domain Path: /lang/
+Domain Path: /languages
 
 Copyright 2015 Andy Wilkerson, Jesse Petersen.
-
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -63,7 +62,7 @@ class Customizer_Remove_All {
 
 			// Tell 
 			register_activation_hook( __FILE__, 'crap_plugin_activation' );
-			add_action( 'plugins_loaded', array( self::$instance, 'load_lang' ) );
+			add_action( 'plugins_loaded', array( self::$instance, 'load_languages' ) );
 			add_action( 'init', array( self::$instance, 'init' ), 10 ); // was priority 5
 			add_action( 'admin_init', array( self::$instance, 'admin_init' ), 10 ); // was priority 5
 		}
@@ -133,7 +132,7 @@ class Customizer_Remove_All {
 
 		if ( is_admin () ) {
 			// Include admin only resources.
-			require_once( CRAP_PLUGIN_DIR . 'includes/admin/actions.php' );
+			require_once( CRAP_PLUGIN_DIR . 'admin/actions.php' );
 		}
 
 	}
@@ -144,7 +143,7 @@ class Customizer_Remove_All {
 	 * @access public
 	 * @return void
 	 */
-	public function load_lang() {
+	public function load_languages() {
 		/** Set our unique textdomain string */
 		$textdomain = 'wp-crap';
 
@@ -152,18 +151,18 @@ class Customizer_Remove_All {
 		$locale = apply_filters( 'plugin_locale', get_locale(), $textdomain );
 
 		/** Set filter for WordPress languages directory */
-		$wp_lang_dir = apply_filters(
-			'crap_wp_lang_dir',
+		$wp_languages_dir = apply_filters(
+			'crap_wp_languages_dir',
 			WP_LANG_DIR . '/wp-crap/' . $textdomain . '-' . $locale . '.mo'
 		);
 
 		/** Translations: First, look in WordPress' "languages" folder */
 		load_textdomain( $textdomain, $wp_lang_dir );
 
-		/** Translations: Next, look in plugin's "lang" folder (default) */
+		/** Translations: Next, look in plugin's "languages" folder (default) */
 		$plugin_dir = basename( dirname( __FILE__ ) );
-		$lang_dir = apply_filters( 'crap_lang_dir', $plugin_dir . '/lang/' );
-		load_plugin_textdomain( $textdomain, FALSE, $lang_dir );
+		$languages_dir = apply_filters( 'crap_languages_dir', $plugin_dir . '/languages' );
+		load_plugin_textdomain( $textdomain, FALSE, $languages_dir );
 	}
 
 	/**
