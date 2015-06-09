@@ -47,7 +47,6 @@ class Customizer_Remove_All {
 	 * Allows only one instance of Customizer_Remove_All in memory, and needing to define 
 	 * lots of globals.
 	 *
-	 * @since 2.7
 	 * @static
 	 * @staticvar array $instance
 	 * @return Big mama, Customizer_Remove_All
@@ -129,12 +128,12 @@ class Customizer_Remove_All {
 	 */
 	private function includes() {
 		// Include resources
-		//require_once( CRAP_PLUGIN_DIR . 'includes/actions.php' );
+		require_once( CRAP_PLUGIN_DIR . 'includes/filters.php' );
 
 
 		if ( is_admin () ) {
 			// Include admin only resources.
-			require_once( CRAP_PLUGIN_DIR . 'includes/admin/admin-actions.php' );
+			require_once( CRAP_PLUGIN_DIR . 'includes/admin/actions.php' );
 		}
 
 	}
