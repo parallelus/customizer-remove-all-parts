@@ -22,7 +22,7 @@ function override_load_customizer_action() {
 }
 add_action( 'load-customize.php', 'override_load_customizer_action' );
 
-/*
+
 	// Remove 'Customize' from Admin menu
 	function remove_submenus() {
 		global $submenu;
@@ -43,5 +43,3 @@ add_action( 'load-customize.php', 'override_load_customizer_action' );
 		echo '<style type="text/css">#customize-current-theme-link { display:none; } </style>';
 	}
 	add_action('admin_head', 'remove_customize_admin_links');
-
-*/
