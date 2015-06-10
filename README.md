@@ -1,6 +1,6 @@
 # WP-CRAP
 
-_WordPress Customizer Remove All Plugin or "WP CRAP" for short, allows you to get the Customizer crap out of your WordPress install. It prevents any Customizer scripts from loading and removes all links and buttons to Customizer in the dashboard and admin toolbar._
+_WordPress Customizer Remove All Parts or "WP CRAP" for short, allows you to get the Customizer crap out of your WordPress install. It prevents any Customizer scripts from loading and removes all links and buttons to Customizer in the dashboard and admin toolbar._
 
 ### Installation
 
