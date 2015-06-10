@@ -165,23 +165,6 @@ class Customizer_Remove_All {
 		load_plugin_textdomain( $textdomain, FALSE, $languages_dir );
 	}
 
-	/**
-	 * Get our plugin settings.
-	 *
-	 * @access public
-	 * @return array $settings
-	 */
-	public function get_plugin_settings() {
-
-		// Get the settings
-		$settings = apply_filters( "crap_settings", get_option( "crap_settings" ) );
-
-		// Apply additional filers...
-		// $settings['some_value'] = apply_filters( 'crap_settings/some_value', $settings['some_value'] );
-
-		return $settings;
-	}
-
 
 } // End Class
 endif;
