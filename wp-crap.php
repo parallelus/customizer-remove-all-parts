@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Customizer Remove All Parts (CRAP)
+Plugin Name: Customizer Remove All Parts (WP CRAP)
 Plugin URI: https://github.com/parallelus/WP-CRAP
 Description: Completely removes the WordPress Customizer from loading in your install.
 Version: 1.0.0
@@ -157,12 +157,29 @@ class Customizer_Remove_All {
 		);
 
 		/** Translations: First, look in WordPress' "languages" folder */
-		load_textdomain( $textdomain, $wp_lang_dir );
+		load_textdomain( $textdomain, $wp_languages_dir );
 
 		/** Translations: Next, look in plugin's "languages" folder (default) */
 		$plugin_dir = basename( dirname( __FILE__ ) );
 		$languages_dir = apply_filters( 'crap_languages_dir', $plugin_dir . '/languages' );
 		load_plugin_textdomain( $textdomain, FALSE, $languages_dir );
+	}
+
+	/**
+	 * Get our plugin settings.
+	 *
+	 * @access public
+	 * @return array $settings
+	 */
+	public function get_plugin_settings() {
+
+		// Get the settings
+		$settings = apply_filters( "crap_settings", get_option( "crap_settings" ) );
+
+		// Apply additional filers...
+		// $settings['some_value'] = apply_filters( 'crap_settings/some_value', $settings['some_value'] );
+
+		return $settings;
 	}
 
 
