@@ -157,7 +157,7 @@ class Customizer_Remove_All {
 		);
 
 		/** Translations: First, look in WordPress' "languages" folder */
-		load_textdomain( $textdomain, $wp_lang_dir );
+		load_textdomain( $textdomain, $wp_languages_dir );
 
 		/** Translations: Next, look in plugin's "languages" folder (default) */
 		$plugin_dir = basename( dirname( __FILE__ ) );
