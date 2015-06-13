@@ -10,3 +10,7 @@ Upload WP CRAP to your blog or use the dashboard to Add New plugins and activate
 
 _1.0.0_
 * Initial Release - 11 June 2015
+
+_1.0.1_
+* Bugfix - 13 June 2015
+* Activation bug with some plugins

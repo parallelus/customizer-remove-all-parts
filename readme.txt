@@ -3,7 +3,7 @@ Contributors: peterdog, parallelus, pmgllc
 Tags: customizer, remove, remove customizer, prevent
 Requires at least: 3.4
 Tested up to: 4.2.2
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,3 +23,7 @@ Upload WP CRAP to your blog or use the dashboard to Add New plugins and activate
 *Release Date - 11 June 2015*
 
 * Initial Release
+
+= 1.0.1 =
+*Bugfix - 13 June 2015*
+* Activation bug with some plugins
