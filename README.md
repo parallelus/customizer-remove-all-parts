@@ -14,3 +14,8 @@ _1.0.0_
 _1.0.1_
 * Bugfix - 13 June 2015
 * Activation bug with some plugins
+
+= 1.0.2 =
+*Update - 17 June 2015*
+* Output at activation removed
+* Simplified plugin structure
