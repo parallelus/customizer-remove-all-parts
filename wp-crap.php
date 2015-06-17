@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Customizer Remove All Parts (WP CRAP)
-Plugin URI: https://github.com/parallelus/WP-CRAP
+Plugin URI: https://github.com/parallelus/wp-crap
 Description: Completely removes the WordPress Customizer from loading in your install.
-Version: 1.0.1
+Version: 1.0.2
 Author: Andy Wilkerson, Jesse Petersen
-Author URI: http://parallelus.github.io/WP-CRAP/
+Author URI: http://parallelus.github.io/wp-crap
 Text Domain: wp-crap
 Domain Path: /languages
 
@@ -43,8 +43,7 @@ class Customizer_Remove_All {
 	/**
 	 * Main Instance
 	 *
-	 * Allows only one instance of Customizer_Remove_All in memory, and needing to define 
-	 * lots of globals.
+	 * Allows only one instance of Customizer_Remove_All in memory.
 	 *
 	 * @static
 	 * @staticvar array $instance
@@ -56,15 +55,11 @@ class Customizer_Remove_All {
 			// Start your engines!
 			self::$instance = new Customizer_Remove_All;
 
-			// Load the class structures to trigger initially
-			self::$instance->setup_constants();
-			self::$instance->includes();
-
-			// Tell 
-			register_activation_hook( __FILE__, 'crap_plugin_activation' );
+			// Load the structures to trigger initially
 			add_action( 'plugins_loaded', array( self::$instance, 'load_languages' ) );
 			add_action( 'init', array( self::$instance, 'init' ), 10 ); // was priority 5
 			add_action( 'admin_init', array( self::$instance, 'admin_init' ), 10 ); // was priority 5
+
 		}
 		return self::$instance;
 	}
@@ -75,11 +70,9 @@ class Customizer_Remove_All {
 	 * @return void
 	 */
 	public function init() {
-		// Get the plugin settings.
-		$this->plugin_settings = $this->get_plugin_settings();
 
-		// Fire the plugin init action so other plugins can register items.
-		do_action( 'crap_init', $this );
+		// Remove customize capability
+		add_filter( 'map_meta_cap', array( self::$instance, 'filter_to_remove_customize_capability'), 10, 4 );
 	}
 
 	/**
@@ -89,52 +82,12 @@ class Customizer_Remove_All {
 	 */
 	public function admin_init() {
 
-		// Fire init action.
-		do_action( 'crap_admin_init', $this );
-	}
+		// Drop some customizer actions
+		remove_action( 'plugins_loaded', '_wp_customize_include', 10);
+		remove_action( 'admin_enqueue_scripts', '_wp_customize_loader_settings', 10);
 
-	/**
-	 * Setup plugin constants
-	 *
-	 * @access private
-	 * @return void
-	 */
-	private function setup_constants() {
-		global $wpdb;
-
-		// Plugin version
-		if ( ! defined( 'CRAP_PLUGIN_VERSION' ) )
-			define( 'CRAP_PLUGIN_VERSION', '0.1' );
-
-		// Plugin Folder Path
-		if ( ! defined( 'CRAP_PLUGIN_DIR' ) )
-			define( 'CRAP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-
-		// Plugin Folder URL
-		if ( ! defined( 'CRAP_PLUGIN_URL' ) )
-			define( 'CRAP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-
-		// Plugin Root File
-		if ( ! defined( 'CRAP_PLUGIN_FILE' ) )
-			define( 'CRAP_PLUGIN_FILE', __FILE__ );
-	}
-
-	/**
-	 * Include files
-	 *
-	 * @access private
-	 * @return void
-	 */
-	private function includes() {
-		// Include resources
-		require_once( CRAP_PLUGIN_DIR . 'includes/filters.php' );
-
-
-		if ( is_admin () ) {
-			// Include admin only resources.
-			require_once( CRAP_PLUGIN_DIR . 'admin/actions.php' );
-		}
-
+		// Manually overrid Customizer behaviors
+		add_action( 'load-customize.php', array( self::$instance, 'override_load_customizer_action') );
 	}
 
 	/**
@@ -144,54 +97,49 @@ class Customizer_Remove_All {
 	 * @return void
 	 */
 	public function load_languages() {
-		/** Set our unique textdomain string */
+		// Set textdomain string 
 		$textdomain = 'wp-crap';
 
-		/** The 'plugin_locale' filter is also used by default in load_plugin_textdomain() */
+		// The 'plugin_locale' filter is also used by default in load_plugin_textdomain()
 		$locale = apply_filters( 'plugin_locale', get_locale(), $textdomain );
 
-		/** Set filter for WordPress languages directory */
-		$wp_languages_dir = apply_filters(
-			'crap_wp_languages_dir',
-			WP_LANG_DIR . '/wp-crap/' . $textdomain . '-' . $locale . '.mo'
-		);
+		// Set filter for WordPress languages directory
+		$wp_languages_dir = apply_filters( 'crap_wp_languages_dir',	WP_LANG_DIR . '/wp-crap/' . $textdomain . '-' . $locale . '.mo' );
 
-		/** Translations: First, look in WordPress' "languages" folder */
+		// Translations: First, look in WordPress' "languages" folder
 		load_textdomain( $textdomain, $wp_languages_dir );
 
-		/** Translations: Next, look in plugin's "languages" folder (default) */
+		// Translations: Next, look in plugin's "languages" folder (default)
 		$plugin_dir = basename( dirname( __FILE__ ) );
 		$languages_dir = apply_filters( 'crap_languages_dir', $plugin_dir . '/languages' );
 		load_plugin_textdomain( $textdomain, FALSE, $languages_dir );
 	}
 
 	/**
-	 * Get our plugin settings.
+	 * Remove customize capability
 	 *
-	 * @access public
-	 * @return array $settings
+	 * This needs to be in public so the admin bar link for 'customize' is hidden.
 	 */
-	public function get_plugin_settings() {
+	public function filter_to_remove_customize_capability( $caps = array(), $cap = '', $user_id = 0, $args = array() ) {
+		if ($cap == 'customize')
+			return false;
 
-		// Get the settings
-		$settings = apply_filters( "crap_settings", get_option( "crap_settings" ) );
-
-		// Apply additional filers...
-		// $settings['some_value'] = apply_filters( 'crap_settings/some_value', $settings['some_value'] );
-
-		return $settings;
+		return $caps;
 	}
 
+	/**
+	 * Manually overriding specific Customizer behaviors
+	 */
+	public function override_load_customizer_action() {
+		// If accessed directly
+		wp_die( __( 'The Customizer is currently disabled.', 'wp-crap' ) );
+	}
 
 } // End Class
 endif;
 
 /**
-* The main function responsible for returning the one true Customizer_Remove_All
-* Instance to functions everywhere.
-*
-* Use this function like you would a global variable, except without needing
-* to declare the global.
+* The main function. Use like a global variable, except no need to declare the global.
 *
 * @return object The one true Customizer_Remove_All Instance
 */
