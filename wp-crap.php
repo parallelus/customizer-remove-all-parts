@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Customizer Remove All Parts (WP CRAP)
-Plugin URI: https://github.com/parallelus/WP-CRAP
+Plugin URI: https://github.com/parallelus/wp-crap
 Description: Completely removes the WordPress Customizer from loading in your install.
 Version: 1.0.0
 Author: Andy Wilkerson, Jesse Petersen
-Author URI: http://parallelus.github.io/WP-CRAP/
+Author URI: http://parallelus.github.io/wp-crap
 Text Domain: wp-crap
 Domain Path: /languages
 
