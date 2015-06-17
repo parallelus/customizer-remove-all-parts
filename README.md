@@ -4,7 +4,7 @@ _WordPress Customizer Remove All Parts allows you to get the Customizer crap out
 
 ### Installation
 
-Upload WP CRAP to your blog or use the dashboard to Add New plugins and activate it. That's it! No options needed. Customizer is gone.
+Upload plugin to your site or use the dashboard to Add New plugins and activate it. That's it! No options needed. Customizer is gone.
 
 ### Changelog
 
