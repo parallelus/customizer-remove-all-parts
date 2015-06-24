@@ -1,21 +1,25 @@
-# WP-CRAP
+# Customizer Remove All Parts
 
-_WordPress Customizer Remove All Parts allows you to get the Customizer crap out of your WordPress install. It prevents any Customizer scripts from loading and removes all links and buttons to Customizer in the dashboard and admin toolbar._
+_The Customizer Remove All Parts plugin allows you to get the Customizer out of your WordPress install. It prevents any Customizer scripts from loading and removes all links and buttons to Customizer in the dashboard and admin toolbar._
 
 ### Installation
 
-Upload plugin to your site or use the dashboard to Add New plugins and activate it. That's it! No options needed. Customizer is gone.
+Upload the plugin to your WordPress plugins directory, or use the dashboard to 'Add New' plugins and activate it. That's it! No options needed. Customizer is gone.
 
 ### Changelog
 
-_1.0.2_
-* Update - 17 June 2015
+**1.0.3**
+*Update - 24 June 2015*
+* Capability filter returns empty array
+
+**1.0.2**
+*Update - 17 June 2015*
 * Output at activation removed
 * Simplified plugin structure
 
-_1.0.1_
-* Bugfix - 13 June 2015
+**1.0.1**
+*Bugfix - 13 June 2015*
 * Activation bug with some plugins
 
-_1.0.0_
-* Initial Release - 11 June 2015
+**1.0.0**
+*Initial Release - 11 June 2015*
