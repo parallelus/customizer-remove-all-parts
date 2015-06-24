@@ -8,18 +8,18 @@ Upload the plugin to your WordPress plugins directory, or use the dashboard to '
 
 ### Changelog
 
-**1.0.0**
-*Initial Release - 11 June 2015*
-
-**1.0.1**
-*Bugfix - 13 June 2015*
-* Activation bug with some plugins
+**1.0.3**
+*Update - 24 June 2015*
+* Capability filter returns empty array
 
 **1.0.2**
 *Update - 17 June 2015*
 * Output at activation removed
 * Simplified plugin structure
 
-**1.0.3**
-*Update - 24 June 2015*
-* Capability filter returns empty array
+**1.0.1**
+*Bugfix - 13 June 2015*
+* Activation bug with some plugins
+
+**1.0.0**
+*Initial Release - 11 June 2015*
