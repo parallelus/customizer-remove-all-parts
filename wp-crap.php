@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: Customizer Remove All Parts (WP CRAP)
-Plugin URI: https://github.com/parallelus/wp-crap
+Plugin Name: Customizer Remove All Parts
+Plugin URI: https://github.com/parallelus/customizer-remove-all-parts
 Description: Completely removes the WordPress Customizer from loading in your install.
-Version: 1.0.2
+Version: 1.0.3
 Author: Andy Wilkerson, Jesse Petersen
-Author URI: http://parallelus.github.io/wp-crap
+Author URI: http://parallelus.github.io/customizer-remove-all-parts
 Text Domain: wp-crap
 Domain Path: /languages
 
@@ -51,7 +51,7 @@ class Customizer_Remove_All {
 	 */
 	public static function instance() {
 		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Customizer_Remove_All ) ) {
-			
+
 			// Start your engines!
 			self::$instance = new Customizer_Remove_All;
 
@@ -66,7 +66,7 @@ class Customizer_Remove_All {
 
 	/**
 	 * Run all plugin stuff on init.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function init() {
@@ -97,7 +97,7 @@ class Customizer_Remove_All {
 	 * @return void
 	 */
 	public function load_languages() {
-		// Set textdomain string 
+		// Set textdomain string
 		$textdomain = 'wp-crap';
 
 		// The 'plugin_locale' filter is also used by default in load_plugin_textdomain()
@@ -121,8 +121,9 @@ class Customizer_Remove_All {
 	 * This needs to be in public so the admin bar link for 'customize' is hidden.
 	 */
 	public function filter_to_remove_customize_capability( $caps = array(), $cap = '', $user_id = 0, $args = array() ) {
-		if ($cap == 'customize')
-			return false;
+		if ($cap == 'customize') {
+			return array('nope'); // thanks @ScreenfeedFr, http://bit.ly/1KbIdPg
+		}
 
 		return $caps;
 	}
