@@ -19,7 +19,7 @@ Upload the plugin to your WordPress plugins directory, or use the dashboard to '
 
 == Changelog ==
 
-#### 1.0.4 =
+#### 1.0.4
 *Update - 14 July 2015*
 
 * Changed priority of remove_action for JavaScript
