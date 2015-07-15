@@ -3,7 +3,7 @@
 Plugin Name: Customizer Remove All Parts
 Plugin URI: https://github.com/parallelus/customizer-remove-all-parts
 Description: Completely removes the WordPress Customizer from loading in your install.
-Version: 1.0.3
+Version: 1.0.4
 Author: Andy Wilkerson, Jesse Petersen
 Author URI: http://parallelus.github.io/customizer-remove-all-parts
 Text Domain: wp-crap
