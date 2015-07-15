@@ -84,7 +84,7 @@ class Customizer_Remove_All {
 
 		// Drop some customizer actions
 		remove_action( 'plugins_loaded', '_wp_customize_include', 10);
-		remove_action( 'admin_enqueue_scripts', '_wp_customize_loader_settings', 10);
+		remove_action( 'admin_enqueue_scripts', '_wp_customize_loader_settings', 11);
 
 		// Manually overrid Customizer behaviors
 		add_action( 'load-customize.php', array( self::$instance, 'override_load_customizer_action') );
