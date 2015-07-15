@@ -3,7 +3,7 @@ Contributors: peterdog, parallelus, pmgllc
 Tags: customizer, remove, remove customizer, prevent
 Requires at least: 3.4
 Tested up to: 4.2.3-alpha
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,23 +19,28 @@ Upload the plugin to your WordPress plugins directory, or use the dashboard to '
 
 == Changelog ==
 
-= 1.0.3 =
+#### 1.0.4 =
+*Update - 14 July 2015*
+
+* Changed priority of remove_action for JavaScript
+
+#### 1.0.3
 *Update - 24 June 2015*
 
 * Capability filter returns empty array
 
-= 1.0.2 =
+#### 1.0.2
 *Update - 17 June 2015*
 
 * Output at activation removed
 * Simplified plugin structure
 
-= 1.0.1 =
+#### 1.0.1
 *Bugfix - 13 June 2015*
 
 * Activation bug with some plugins
 
-= 1.0.0 =
+#### 1.0.0
 *Release Date - 11 June 2015*
 
 * Initial Release
